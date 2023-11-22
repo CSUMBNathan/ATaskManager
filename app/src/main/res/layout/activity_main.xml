@@ -6,14 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
     <TextView
         android:id="@+id/textViewTaskDetails"
         android:layout_width="375dp"
         android:layout_height="217dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="16dp"
-        android:text="Task Details: "
+        android:text="TODOS: "
+        android:textSize="20dp"
         android:fadeScrollbars="true"
         android:scrollbars="vertical"
         app:layout_constraintTop_toTopOf="parent"
