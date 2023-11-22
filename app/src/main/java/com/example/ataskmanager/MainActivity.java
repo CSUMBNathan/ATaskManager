@@ -1,14 +1,19 @@
 package com.example.ataskmanager;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ataskmanager.DB.AppDataBase;
 import com.example.ataskmanager.DB.TaskDAO;
@@ -33,14 +38,13 @@ public class MainActivity extends AppCompatActivity {
 
     List<Task> mTaskList;
 
-
-
-
+    private int mUserId = -1;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -59,24 +63,38 @@ public class MainActivity extends AppCompatActivity {
                 .allowMainThreadQueries()
                 .build()
                 .TaskDAO();
+
         refreshDisplay();
 
         mSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                submitGymLog();
+                submitTask();
                 refreshDisplay();
+
             }
         });
 
     } //end of onCreate
 
-    private void submitGymLog(){
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.logout_click) {
+            Toast.makeText(this, "Item 1 selected", Toast.LENGTH_SHORT).show();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void submitTask(){
         String event = mEvent.getText().toString();
         String date = mDate.getText().toString();
-        String details = mTaskDetails.getText().toString();
+        String details = mDescription.getText().toString();
 
-        Task task = new Task(event, date, details);
+        Task task = new Task(event, date, details, mUserId);
 
         mTaskDAO.insert(task);
     }
@@ -90,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
                 sb.append(task.toString());
             }
             mTaskDetails.setText(sb.toString());
+            System.out.println(sb.toString());
         }else{
             mTaskDetails.setText("Make some tasks lazybones.");
         }
