@@ -9,12 +9,14 @@ import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
 
 import com.example.ataskmanager.Task;
+import com.example.ataskmanager.User;
 
-@Database(entities = {Task.class},version = 2)
+@Database(entities = {Task.class, User.class},version = 2)
 @TypeConverters({DateTypeConverter.class})
 public abstract class AppDataBase extends RoomDatabase {
     public static final String DATABASE_NAME = "Task.db";
     public static final String TASK_TABLE = "task_table";
+    public static final String USER_TABLE = "user_table";
 
     private static volatile AppDataBase instance;
     private static final Object LOCK = new Object();
