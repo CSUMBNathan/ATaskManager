@@ -11,7 +11,35 @@ public class User {
     private int mUserId;
 
     private String mUserName;
-    private String mUsername;
+    private String mPassword;
 
+    public User(String userName, String password) {
+        //this.mUserId = userId;
+        this.mUserName = userName;
+        this.mPassword = password;
+    }
 
+    public int getUserId() {
+        return mUserId;
+    }
+
+    public void setUserId(int mUserId) {
+        this.mUserId = mUserId;
+    }
+
+    public String getUserName() {
+        return mUserName;
+    }
+
+    public void setUserName(String mUserName) {
+        this.mUserName = mUserName;
+    }
+
+    public String getPassword() {
+        return mPassword;
+    }
+
+    public void setPassword(String Password) {
+        this.mPassword = Password;
+    }
 }
