@@ -69,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
 
         mTaskDetails.setMovementMethod(new ScrollingMovementMethod());
 
-
         refreshDisplay();
 
         mSubmit.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 submitTask();
                 refreshDisplay();
-
             }
         });
 
@@ -88,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     } //end of onCreate
-
 
     private void loginUser(int userId) {
         mUser = mTaskDAO.getUserByUserId(userId);
@@ -191,9 +188,6 @@ public class MainActivity extends AppCompatActivity {
         Task task = new Task(event, date, details, mUserId);
 
         mTaskDAO.insert(task);
-        System.out.println(task.toString());
-        System.out.println("mUserId: "+ mUserId);
-        System.out.println("submit task end");
 
         refreshDisplay();
 
@@ -201,7 +195,6 @@ public class MainActivity extends AppCompatActivity {
         mDate.getText().clear();
         mDescription.getText().clear();
     }
-
 
     private void refreshDisplay(){
         System.out.println("refresh display started");
