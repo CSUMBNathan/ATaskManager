@@ -12,6 +12,7 @@ public class User {
 
     private String mUserName;
     private String mPassword;
+    //this is a branch test
 
     public User(String userName, String password) {
         //this.mUserId = userId;
