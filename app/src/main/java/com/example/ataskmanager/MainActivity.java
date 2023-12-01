@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button mSubmit;
     Button mLogout;
+    Button mEditTask;
 
     TaskDAO mTaskDAO;
 
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         mDate = binding.editTextDate;
         mDescription = binding.editTextDescription;
         mLogout = binding.buttonLogoutMain;
+        mEditTask = binding.buttonEditTasks;
 
         mTaskDetails.setMovementMethod(new ScrollingMovementMethod());
 
@@ -83,6 +85,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 logoutUser();
+            }
+        });
+
+        mEditTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                launchEditTasksActivity();
             }
         });
     } //end of onCreate
@@ -220,11 +229,13 @@ public class MainActivity extends AppCompatActivity {
         return intent;
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.task_menu,menu);
-        return true;
+    private void launchEditTasksActivity() {
+        Intent intent = new Intent(MainActivity.this, EditTasks.class);
+        intent.putExtra("USER_ID", mUserId);
+        System.out.println(mUserId);
+        startActivity(intent);
     }
+
+
 
 }
