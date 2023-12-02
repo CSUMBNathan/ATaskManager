@@ -222,10 +222,8 @@ public class MainActivity extends AppCompatActivity {
             for(Task task:mTaskList){
                 sb.append(task.toString());
             }
-            System.out.println("refresh to string: " + sb.toString());
             mTaskDetails.setText(sb.toString());
          }else{
-            System.out.println("Refresh else: asdfsadfsadf");
             mTaskDetails.setText("Make some tasks lazybones.");
         }
     }
