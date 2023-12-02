@@ -58,18 +58,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         getDataBase();
+
         checkForUser();
+
         loginUser(mUserId);
 
-        mTaskDetails = binding.textViewTaskDetails;
-        mSubmit = binding.buttonSubmit;
-        mEvent = binding.editTextEvent;
-        mDate = binding.editTextDate;
-        mDescription = binding.editTextDescription;
-        mLogout = binding.buttonLogoutMain;
-        mEditTask = binding.buttonEditTasks;
-
-        mTaskDetails.setMovementMethod(new ScrollingMovementMethod());
+        bindElements();
 
         refreshDisplay();
 
@@ -95,6 +89,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     } //end of onCreate
+
+    private void bindElements() {
+        mTaskDetails = binding.textViewTaskDetails;
+
+        mEvent = binding.editTextEvent;
+        mDate = binding.editTextDate;
+        mDescription = binding.editTextDescription;
+
+        mSubmit = binding.buttonSubmit;
+        mLogout = binding.buttonLogoutMain;
+        mEditTask = binding.buttonEditTasks;
+
+        mTaskDetails.setMovementMethod(new ScrollingMovementMethod());
+    }
 
     private void loginUser(int userId) {
         mUser = mTaskDAO.getUserByUserId(userId);
