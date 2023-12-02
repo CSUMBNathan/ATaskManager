@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.example.ataskmanager.DB.AppDataBase;
@@ -17,7 +19,7 @@ import com.example.ataskmanager.DB.TaskDAO;
 
 import java.util.List;
 
-public class EditTasks extends AppCompatActivity {
+public class EditTaskActivity extends AppCompatActivity {
 
     private TaskDAO mTaskDAO;
     private List<Task> mTaskList;
@@ -32,7 +34,6 @@ public class EditTasks extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null) {
             mUserId = intent.getIntExtra("USER_ID", -1);
-            System.out.println(mUserId);
         }
 
         mTaskDAO = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.DATABASE_NAME)
@@ -64,8 +65,51 @@ public class EditTasks extends AppCompatActivity {
     }
 
     private void editTask(Task task) {
-        // Implement code to open the edit task screen with the selected task details
-        // You can use an Intent to navigate to a new activity or fragment.
+        // Create a custom dialog for editing task details
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Edit Task");
+
+        // Inflate the layout for the dialog
+        View view = getLayoutInflater().inflate(R.layout.activity_edit_task_info, null);
+        builder.setView(view);
+
+        final EditText editEvent = view.findViewById(R.id.editTextEvent);
+        final EditText editDate = view.findViewById(R.id.editTextDate);
+        final EditText editDescription = view.findViewById(R.id.editTextDescription);
+        Button buttonSave = view.findViewById(R.id.buttonSaveEditTask);
+
+        // Set up UI elements with existing task details
+        editEvent.setText(task.getEvent());
+        editDate.setText(task.getDate());
+        editDescription.setText(task.getDescription());
+
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+
+        // Set up click listener for the "Save" button
+        buttonSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Get the modified values from UI elements
+                String modifiedEvent = editEvent.getText().toString();
+                String modifiedDate = editDate.getText().toString();
+                String modifiedDescription = editDescription.getText().toString();
+
+                // Update the task with modified values
+                task.setEvent(modifiedEvent);
+                task.setDate(modifiedDate);
+                task.setDescription(modifiedDescription);
+
+                // Update the task in the database
+                mTaskDAO.update(task);
+
+                // Dismiss the dialog
+                dialog.dismiss();
+
+                // Refresh the task list
+                refreshTaskList();
+            }
+        });
     }
 
     private void showDeleteConfirmationDialog(final Task task) {
