@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     Button mSubmit;
     Button mLogout;
     Button mEditTask;
+    Button mAdminTools;
 
     TaskDAO mTaskDAO;
 
@@ -65,7 +66,10 @@ public class MainActivity extends AppCompatActivity {
 
         bindElements();
 
+        checkAdminStatus();
+
         refreshDisplay();
+
 
         mSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
         mSubmit = binding.buttonSubmit;
         mLogout = binding.buttonLogoutMain;
         mEditTask = binding.buttonEditTasks;
+        mAdminTools = binding.buttonAdminTools;
 
         mTaskDetails.setMovementMethod(new ScrollingMovementMethod());
     }
@@ -162,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
 
         List<User> users = mTaskDAO.getAllUsers();
         if(users.size() <= 0){
-            User defaultUser = new User("daclink","daclink");
+            User defaultUser = new User("daclink","daclink", true);
             mTaskDAO.insert(defaultUser);
         }
 
@@ -242,6 +247,24 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void checkAdminStatus() {
+        if (mUser != null && mUser.getIsAdmin()) {
+            // User is an admin, show the Admin Tools button
+            mAdminTools.setVisibility(View.VISIBLE);
 
+            // Set up click listener for the Admin Tools button
+            mAdminTools.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Implement the logic for admin tools here
+                    // For example, open a new activity or perform some admin-specific actions
+                    Toast.makeText(MainActivity.this, "Admin Tools Clicked", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            // User is not an admin, hide the Admin Tools button
+            mAdminTools.setVisibility(View.GONE);
+        }
+    }
 
 }
