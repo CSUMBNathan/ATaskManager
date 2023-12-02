@@ -238,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void launchEditTasksActivity() {
-        Intent intent = new Intent(MainActivity.this, EditTasks.class);
+        Intent intent = new Intent(MainActivity.this, EditTaskActivity.class);
         intent.putExtra("USER_ID", mUserId);
         System.out.println(mUserId);
         startActivity(intent);
