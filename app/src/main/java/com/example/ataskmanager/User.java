@@ -12,10 +12,18 @@ public class User {
 
     private String mUserName;
     private String mPassword;
+
+    private boolean mIsAdmin = false;
     //this is a branch test
 
+    public User(String userName, String password, Boolean IsAdmin){
+        this.mUserName = userName;
+        this.mPassword = password;
+        this.mIsAdmin = IsAdmin;
+    }
+
+
     public User(String userName, String password) {
-        //this.mUserId = userId;
         this.mUserName = userName;
         this.mPassword = password;
     }
@@ -42,5 +50,13 @@ public class User {
 
     public void setPassword(String Password) {
         this.mPassword = Password;
+    }
+
+    public boolean getIsAdmin() {
+        return mIsAdmin;
+    }
+
+    public void setIsAdmin(boolean isAdmin) {
+        this.mIsAdmin = isAdmin;
     }
 }
