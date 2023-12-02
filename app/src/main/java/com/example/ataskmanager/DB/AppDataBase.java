@@ -11,7 +11,7 @@ import androidx.room.TypeConverters;
 import com.example.ataskmanager.Task;
 import com.example.ataskmanager.User;
 
-@Database(entities = {Task.class, User.class},version = 2)
+@Database(entities = {Task.class, User.class},version = 3)
 @TypeConverters({DateTypeConverter.class})
 public abstract class AppDataBase extends RoomDatabase {
     public static final String DATABASE_NAME = "Task.db";
