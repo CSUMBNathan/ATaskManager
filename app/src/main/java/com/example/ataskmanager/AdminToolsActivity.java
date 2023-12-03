@@ -5,6 +5,7 @@ import androidx.room.Room;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -62,6 +63,14 @@ public class AdminToolsActivity extends AppCompatActivity {
             }
         });
 
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                showDeleteUserConfirmationDialog(mUserList.get(position));
+                return true;
+            }
+        });
+
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,7 +109,51 @@ public class AdminToolsActivity extends AppCompatActivity {
     }
 
     private void showDeleteUserConfirmationDialog(final User user) {
+        if (user.getIsAdmin()) {
+            // Display a message that the admin user cannot be deleted
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Cannot Delete Admin");
+            builder.setMessage("The admin user cannot be deleted.");
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            builder.show();
+        } else {
+            // Allow deletion for non-admin users
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Delete User");
+            builder.setMessage("Are you sure you want to delete this user?");
+            builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    deleteUser(user);
+                }
+            });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            builder.show();
+        }
+    }
 
+    private void deleteUser(User user) {
+        // Implement code to delete the user from the database
+        mTaskDAO.delete(user);
+
+        // Refresh the user list
+        refreshUserList();
+    }
+
+    private void refreshUserList() {
+        mUserList.clear();
+        mUserList.addAll(mTaskDAO.getAllUsers());
+        mUserAdapter.notifyDataSetChanged();
     }
 
     public static Intent intentFactory(Context context, int userId) {
