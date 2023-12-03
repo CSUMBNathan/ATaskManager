@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.ataskmanager.DB.AppDataBase;
 import com.example.ataskmanager.DB.TaskDAO;
@@ -25,6 +26,7 @@ public class EditTaskActivity extends AppCompatActivity {
     private List<Task> mTaskList;
     private ArrayAdapter<Task> mTaskAdapter;
     private int mUserId = -1;
+    private Button mBackButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +42,12 @@ public class EditTaskActivity extends AppCompatActivity {
                 .allowMainThreadQueries()
                 .build()
                 .TaskDAO();
-
+        mBackButton = findViewById(R.id.backButtonEditTask);
         mTaskList = mTaskDAO.getTaskByUserId(mUserId);
         ListView listView = findViewById(R.id.listViewTasks);
         mTaskAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mTaskList);
         listView.setAdapter(mTaskAdapter);
 
-        // Handle item click to edit task
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -54,7 +55,6 @@ public class EditTaskActivity extends AppCompatActivity {
             }
         });
 
-        // Handle item long click to delete task
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -62,7 +62,17 @@ public class EditTaskActivity extends AppCompatActivity {
                 return true;
             }
         });
-    }
+
+        mBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = MainActivity.intentFactory(getApplicationContext(),mUserId);
+                startActivity(intent);
+            }
+        });
+
+
+    }//end of on create
 
     private void editTask(Task task) {
         // Create a custom dialog for editing task details
@@ -73,6 +83,7 @@ public class EditTaskActivity extends AppCompatActivity {
         View view = getLayoutInflater().inflate(R.layout.activity_edit_task_info, null);
         builder.setView(view);
 
+        final TextView currentTask = view.findViewById(R.id.textViewTaskDetails);
         final EditText editEvent = view.findViewById(R.id.editTextEvent);
         final EditText editDate = view.findViewById(R.id.editTextDate);
         final EditText editDescription = view.findViewById(R.id.editTextDescription);
@@ -82,6 +93,9 @@ public class EditTaskActivity extends AppCompatActivity {
         editEvent.setText(task.getEvent());
         editDate.setText(task.getDate());
         editDescription.setText(task.getDescription());
+        currentTask.setText(task.toString());
+
+
 
         final AlertDialog dialog = builder.create();
         dialog.show();
