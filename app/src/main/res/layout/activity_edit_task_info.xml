@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -12,8 +11,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="16dp"
-        android:text="Task: "
-        android:textSize="20dp"
+        android:text="@string/task"
+        android:textSize="20sp"
         android:fadeScrollbars="true"
         android:scrollbars="vertical"
         app:layout_constraintTop_toTopOf="parent"
@@ -24,7 +23,7 @@
         android:id="@+id/editTextEvent"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:hint="Event"
+        android:hint="@string/event"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,27 +32,30 @@
 
     <EditText
         android:id="@+id/editTextDate"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:hint="Date"
+        android:hint="@string/date"
         android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editTextEvent" />
 
     <EditText
         android:id="@+id/editTextDescription"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:hint="Description"
+        android:hint="@string/description"
         android:minHeight="48dp"
-        app:layout_constraintTop_toBottomOf="@id/editTextDate"
-        tools:layout_editor_absoluteX="25dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextDate" />
 
     <Button
         android:id="@+id/buttonSaveEditTask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
-        android:text="Save"
+        android:text="@string/save"
         app:layout_constraintEnd_toEndOf="@+id/editTextEvent"
         app:layout_constraintStart_toStartOf="@+id/editTextEvent"
         app:layout_constraintTop_toBottomOf="@id/editTextDescription" />
