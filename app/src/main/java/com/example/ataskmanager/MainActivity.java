@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
 
         refreshDisplay();
 
-
         mSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -219,9 +218,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void refreshDisplay(){
-        System.out.println("refresh display started");
         mTaskList = mTaskDAO.getTaskByUserId(mUserId);
-//        mTaskList = mTaskDAO.getTaskById(mUserId);
+
         if(!mTaskList.isEmpty()){
             StringBuilder sb = new StringBuilder();
             for(Task task:mTaskList){
@@ -243,7 +241,6 @@ public class MainActivity extends AppCompatActivity {
     private void launchEditTasksActivity() {
         Intent intent = new Intent(MainActivity.this, EditTaskActivity.class);
         intent.putExtra("USER_ID", mUserId);
-        System.out.println(mUserId);
         startActivity(intent);
     }
 
@@ -256,9 +253,8 @@ public class MainActivity extends AppCompatActivity {
             mAdminTools.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // Implement the logic for admin tools here
-                    // For example, open a new activity or perform some admin-specific actions
-                    Toast.makeText(MainActivity.this, "Admin Tools Clicked", Toast.LENGTH_SHORT).show();
+                    Intent intent = AdminToolsActivity.intentFactory(getApplicationContext(),mUserId);
+                    startActivity(intent);
                 }
             });
         } else {
