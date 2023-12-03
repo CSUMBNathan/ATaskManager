@@ -6,6 +6,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.ataskmanager.SharedTask;
 import com.example.ataskmanager.Task;
 import com.example.ataskmanager.User;
 
@@ -49,5 +50,17 @@ public interface TaskDAO {
 
     @Query("SELECT * FROM " + AppDataBase.USER_TABLE + " WHERE mUserId = :userId")
     User getUserByUserId(int userId);
+
+    @Insert
+    void insert(SharedTask...sharedTask);
+
+    @Update
+    void update(SharedTask...sharedTask);
+
+    @Delete
+    void delete(SharedTask...sharedTask);
+
+    @Query("SELECT * FROM " + AppDataBase.UNIVERSAL_TASK_TABLE)
+    List<SharedTask> getAllSharedTasks();
 
 }
