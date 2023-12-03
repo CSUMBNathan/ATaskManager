@@ -10,4 +10,5 @@
     <string name="task">Task:</string>
     <string name="event">Event</string>
     <string name="back">Back</string>
+    <string name="add_task">Add Task</string>
 </resources>
