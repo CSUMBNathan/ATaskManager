@@ -4,4 +4,10 @@
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="description">Description</string>
+    <string name="date">Date</string>
+    <string name="save">Save</string>
+    <string name="task">Task:</string>
+    <string name="event">Event</string>
+    <string name="back">Back</string>
 </resources>
