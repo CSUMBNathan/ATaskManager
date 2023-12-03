@@ -26,7 +26,6 @@ public class EditTaskActivity extends AppCompatActivity {
     private List<Task> mTaskList;
     private ArrayAdapter<Task> mTaskAdapter;
     private int mUserId = -1;
-    private Button mBackButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +41,7 @@ public class EditTaskActivity extends AppCompatActivity {
                 .allowMainThreadQueries()
                 .build()
                 .TaskDAO();
-        mBackButton = findViewById(R.id.backButtonEditTask);
+        Button mBackButton = findViewById(R.id.backButtonEditTask);
         mTaskList = mTaskDAO.getTaskByUserId(mUserId);
         ListView listView = findViewById(R.id.listViewTasks);
         mTaskAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mTaskList);
