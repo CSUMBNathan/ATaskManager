@@ -27,6 +27,8 @@ public class AdminToolsActivity extends AppCompatActivity {
     private ArrayAdapter<User> mUserAdapter;
 
     private Button mBack;
+    private Button mUniversalTaskButton;
+
 
     private int mUserId = -1;
 
@@ -36,6 +38,8 @@ public class AdminToolsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admin_tools);
 
         mBack = findViewById(R.id.adminToolsBackButton);
+        mUniversalTaskButton = findViewById(R.id.addUniTaskButton);
+
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -76,9 +80,17 @@ public class AdminToolsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = MainActivity.intentFactory(getApplicationContext(),mUserId);
                 startActivity(intent);
-
             }
         });
+
+        mUniversalTaskButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = UniversalTasks.intentFactory(getApplicationContext(), mUserId);
+                startActivity(intent);
+            }
+        });
+
     }//end of on create
 
 
