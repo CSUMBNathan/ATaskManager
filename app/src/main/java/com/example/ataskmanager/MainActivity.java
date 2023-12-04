@@ -223,7 +223,7 @@ public class MainActivity extends AppCompatActivity {
         String date = mDate.getText().toString();
         String details = mDescription.getText().toString();
 
-        Task task = new Task(event, date, details, mUserId);
+        Task task = new Task(event, details, date, mUserId);
 
         mTaskDAO.insert(task);
 

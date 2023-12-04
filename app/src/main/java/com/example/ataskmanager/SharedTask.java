@@ -15,7 +15,7 @@ public class SharedTask {
     private String mDescription;
     private boolean mCompleted = false;
 
-    public SharedTask(String mEvent, String mDate, String mDescription) {
+    public SharedTask(String mEvent, String mDescription, String mDate) {
         this.mEvent = mEvent;
         this.mDate = mDate;
         this.mDescription = mDescription;
@@ -25,8 +25,8 @@ public class SharedTask {
     public String toString() {
         return "Universal Task " + "\n" +
                 "Event: " + mEvent + "\n" +
-                "Date: " + mDate + "\n" +
                 "Description: " + mDescription + "\n" +
+                "Date: " + mDate + "\n" +
                 "Completed: " + mCompleted + "\n" +
                 "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n";
     }

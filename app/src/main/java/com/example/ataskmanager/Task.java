@@ -18,7 +18,7 @@ public class Task {
 
     private int mUserId;
 
-    public Task(String mEvent, String mDate, String mDescription, int userId) {
+    public Task(String mEvent, String mDescription, String mDate, int userId) {
         this.mEvent = mEvent;
         this.mDate = mDate;
         this.mDescription = mDescription;
