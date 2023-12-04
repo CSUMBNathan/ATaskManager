@@ -30,12 +30,12 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "mUserId=" + mUserId +
-                ", mUserName='" + mUserName + '\'' +
-                ", mPassword='" + mPassword + '\'' +
-                ", mIsAdmin=" + mIsAdmin +
-                '}';
+        return "User: " + mUserName + "\n" +
+                "UserId: " + mUserId + "\n" +
+                "UserName: " + mUserName + "\n" +
+                "Password: " + mPassword + "\n" +
+                "IsAdmin: " + mIsAdmin + "\n" +
+                "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n";
     }
 
     public int getUserId() {
