@@ -21,6 +21,16 @@ public class SharedTask {
         this.mDescription = mDescription;
     }
 
+    @Override
+    public String toString() {
+        return "Universal Task " + "\n" +
+                "Event: " + mEvent + "\n" +
+                "Date: " + mDate + "\n" +
+                "Description: " + mDescription + "\n" +
+                "Completed: " + mCompleted + "\n" +
+                "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n";
+    }
+
     public int getTaskId() {
         return taskId;
     }
