@@ -3,6 +3,7 @@ package com.example.ataskmanager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -53,7 +54,23 @@ public class UniversalTasks extends AppCompatActivity {
         //I did not know you could do this, it looks so sleek, I'm weak.
         mUniversalSubmitButton.setOnClickListener(view -> insertSharedTask());
 
-        }
+        mUniversalBackButton.setOnClickListener((view -> backToAdminToolsActivity()));
+
+        mListViewUni.setOnItemLongClickListener((parent, view, position, id) -> {
+            SharedTask selectedSharedTask = mSharedTaskList.get(position);
+
+            showDeleteSharedTaskConfirmationDialog(selectedSharedTask);
+
+            return true;
+        });
+
+        mListViewUni.setOnItemClickListener((parent, view, position, id) -> {
+            SharedTask selectedSharedTask = mSharedTaskList.get(position);
+
+            showMarkAsCompletedAlert(selectedSharedTask);
+        });
+
+        } //end of on create
 
     private void findViewForFields() {
         mUniversalBackButton = findViewById(R.id.buttonBackUni);
@@ -86,7 +103,9 @@ public class UniversalTasks extends AppCompatActivity {
         refreshSharedTaskList();
     }
 
-    private void getUserInput() {
+    private void backToAdminToolsActivity(){
+        Intent intent = AdminToolsActivity.intentFactory(getApplicationContext(),mUserId);
+        startActivity(intent);
     }
 
     private void getUserIdFromIntent() {
@@ -107,4 +126,46 @@ public class UniversalTasks extends AppCompatActivity {
         intent.putExtra("USER_ID", userId);
         return intent;
     }
+
+    private void showDeleteSharedTaskConfirmationDialog(final SharedTask sharedTask) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Delete Shared Task");
+        builder.setMessage("Are you sure you want to delete this shared task?");
+        builder.setPositiveButton("Delete", (dialog, which) -> {
+            deleteSharedTask(sharedTask);
+            dialog.dismiss();
+        });
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+        builder.show();
+    }
+
+    private void deleteSharedTask(SharedTask sharedTask) {
+        // Implement code to delete the shared task from the database
+        mTaskDAO.delete(sharedTask);
+
+        // Refresh the shared task list
+        refreshSharedTaskList();
+    }
+
+    private void showMarkAsCompletedAlert(final SharedTask sharedTask) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Mark as (in)Completed");
+        builder.setMessage("Do you want to change the completion of this?");
+        builder.setPositiveButton("Yes", (dialog, which) -> {
+            markSharedTaskAsCompleted(sharedTask);
+            dialog.dismiss();
+        });
+        builder.setNegativeButton("No", (dialog, which) -> dialog.dismiss());
+        builder.show();
+    }
+
+    private void markSharedTaskAsCompleted(SharedTask sharedTask) {
+        // Implement code to mark the shared task as completed in the database
+        sharedTask.setCompleted(!sharedTask.isCompleted());
+        mTaskDAO.update(sharedTask);
+
+        // Refresh the shared task list
+        refreshSharedTaskList();
+    }
+
 }
