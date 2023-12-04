@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     TaskDAO mTaskDAO;
 
     List<Task> mTaskList;
+    List<SharedTask> mSharedTasks;
+
 
     private int mUserId = -1;
 
@@ -217,19 +219,30 @@ public class MainActivity extends AppCompatActivity {
         mDescription.getText().clear();
     }
 
-    private void refreshDisplay(){
+    private void refreshDisplay() {
         mTaskList = mTaskDAO.getTaskByUserId(mUserId);
+        mSharedTasks = mTaskDAO.getAllSharedTasks();
+        StringBuilder sb = new StringBuilder();
 
-        if(!mTaskList.isEmpty()){
-            StringBuilder sb = new StringBuilder();
-            for(Task task:mTaskList){
-                sb.append(task.toString());
+        if (!mSharedTasks.isEmpty()) {
+            for (SharedTask sharedTask : mSharedTasks) {
+                sb.append(sharedTask.toString()).append("\n");
             }
+        }
+
+        if (!mTaskList.isEmpty()) {
+            for (Task task : mTaskList) {
+                sb.append(task.toString()).append("\n");
+            }
+        }
+
+        if (sb.length() > 0) {
             mTaskDetails.setText(sb.toString());
-         }else{
+        } else {
             mTaskDetails.setText("Make some tasks lazybones.");
         }
-    }
+        }
+
 
     public static Intent intentFactory(Context context, int userId) {
         Intent intent = new Intent(context, MainActivity.class);
