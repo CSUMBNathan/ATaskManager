@@ -94,6 +94,16 @@ public class MainActivity extends AppCompatActivity {
                 launchEditTasksActivity();
             }
         });
+
+        mUserName.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (mUser != null && !mUser.getIsAdmin()) {
+                    showDeleteUserConfirmationDialog();
+                }
+                return true;
+            }
+        });
     } //end of onCreate
 
     private void bindElements() {
@@ -283,6 +293,35 @@ public class MainActivity extends AppCompatActivity {
             // User is not an admin, hide the Admin Tools button
             mAdminTools.setVisibility(View.GONE);
         }
+    }
+
+    private void showDeleteUserConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Delete User");
+        builder.setMessage("Are you sure you want to delete your account?");
+        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Delete user and log out
+                deleteUserAndLogout();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
+    }
+
+    private void deleteUserAndLogout() {
+        mTaskDAO.delete(mUser);
+
+        clearUserFromIntent();
+        clearUserFromPref();
+        mUserId = -1;
+        checkForUser();
     }
 
 }
