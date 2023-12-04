@@ -181,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
 
         List<User> users = mTaskDAO.getAllUsers();
         if(users.size() <= 0){
-            User defaultUser = new User("testUser1","123", true);
+            User defaultUser = new User("admin2","123", true);
             User defaultUser2 = new User("testuser1", "123");
             mTaskDAO.insert(defaultUser);
             mTaskDAO.insert(defaultUser2);
