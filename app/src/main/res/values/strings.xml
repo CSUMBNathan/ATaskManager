@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">ATaskManager</string>
+    <string name="username">UserName</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="description">Description</string>
+    <string name="date">Date</string>
+    <string name="save">Save</string>
+    <string name="task">Task:</string>
+    <string name="event">Event</string>
+    <string name="back">Back</string>
+    <string name="add_task">Add Task</string>
+    <string name="submit">Submit</string>
+    <string name="edit">Edit</string>
+    <string name="admin">Admin!</string>
+    <string name="logout">Logout</string>
 </resources>
