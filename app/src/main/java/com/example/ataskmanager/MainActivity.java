@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
 
     TextView mTaskDetails;
+    TextView mUserName;
     EditText mEvent;
     EditText mDate;
     EditText mDescription;
@@ -97,6 +98,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void bindElements() {
         mTaskDetails = binding.textViewTaskDetails;
+        mUserName = binding.textViewUserNameMain;
+        mUserName.setText("User: " + mUser.getUserName());
 
         mEvent = binding.editTextEvent;
         mDate = binding.editTextDate;
@@ -224,15 +227,21 @@ public class MainActivity extends AppCompatActivity {
         mSharedTasks = mTaskDAO.getAllSharedTasks();
         StringBuilder sb = new StringBuilder();
 
-        if (!mSharedTasks.isEmpty()) {
-            for (SharedTask sharedTask : mSharedTasks) {
+        for (SharedTask sharedTask : mSharedTasks) {
+            if (!sharedTask.isCompleted()) {
                 sb.append(sharedTask.toString()).append("\n");
             }
         }
 
-        if (!mTaskList.isEmpty()) {
-            for (Task task : mTaskList) {
-                sb.append(task.toString()).append("\n");
+        // Append uncompleted user tasks
+        for (Task task : mTaskList) {
+            sb.append(task.toString()).append("\n");
+        }
+
+        // Append completed shared tasks
+        for (SharedTask sharedTask : mSharedTasks) {
+            if (sharedTask.isCompleted()) {
+                sb.append(sharedTask.toString()).append("\n");
             }
         }
 
