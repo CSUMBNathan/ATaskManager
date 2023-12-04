@@ -38,7 +38,7 @@
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextEvent" />
+        app:layout_constraintTop_toBottomOf="@id/editTextDescription" />
 
     <EditText
         android:id="@+id/editTextDescription"
@@ -48,7 +48,7 @@
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextDate" />
+        app:layout_constraintTop_toBottomOf="@id/editTextEvent" />
 
     <Button
         android:id="@+id/buttonSaveEditTask"
@@ -58,7 +58,7 @@
         android:text="@string/save"
         app:layout_constraintEnd_toEndOf="@+id/editTextEvent"
         app:layout_constraintStart_toStartOf="@+id/editTextEvent"
-        app:layout_constraintTop_toBottomOf="@id/editTextDescription" />
+        app:layout_constraintTop_toBottomOf="@id/editTextDate" />
 
 
 
